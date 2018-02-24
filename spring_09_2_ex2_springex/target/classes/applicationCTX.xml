@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="logAop" class="com.javalec.ex.LogAop" />
+	
+	<aop:config>
+		
+		
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			<!-- <aop:around> : 메서드 실행 전/후 및 exception 발생시 advice실행 -->
+			<aop:around pointcut-ref="publicM" method="loggerAop" />
+		</aop:aspect>
+		
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			<!-- <aop:before> : 메소드 실행 전에 advice실행 -->
+			<aop:before pointcut-ref="publicM" method="beforeAdvice" />
+		</aop:aspect>
+		
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			<!-- <aop:after-returning> : 정상적으로 메소드 실행 후에 advice실행(예외가 발생하면 작동 안됨) -->
+			<aop:after-returning pointcut-ref="publicM" method="afterReturningAdvice" />
+		</aop:aspect>
+		
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			<!-- <aop:after-throwing> : 메소드 실행중 exception 발생시 advice실행 -->
+			<aop:after-throwing pointcut-ref="publicM" method="afterThrowingAdvice" />
+		</aop:aspect>
+		
+		<aop:aspect id="logger" ref="logAop">
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			<!-- <aop:after> : 메소드 실행중 exception 이 발생하여도 advice실행 -->
+			<aop:after pointcut-ref="publicM" method="afterAdvice" />
+		</aop:aspect>
+		
+	</aop:config>
+	
+	<bean id="student" class="com.javalec.ex.Student" >
+		<property name="name" value="홍길동" />
+		<property name="age" value="10" />
+		<property name="gradeNum" value="3" />
+		<property name="classNum" value="5" />
+	</bean>
+	
+	<bean id="worker" class="com.javalec.ex.Worker" >
+		<property name="name" value="홍길순" />
+		<property name="age" value="35" />
+		<property name="job" value="개발자" />
+	</bean>
+	
+</beans>

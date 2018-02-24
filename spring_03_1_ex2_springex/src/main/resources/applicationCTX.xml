@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<!-- bean은 객체 하나하나를 bean이라고 생각하면된다. -->
+	<!-- 스프링은 xml을 통해 객체를 생성해야한다 -->
+	<bean id="calculator" class="com.javalec.ex.Calculator" />
+	
+	<bean id="myCalculator" class="com.javalec.ex.MyCalculator">
+		
+		<!-- myCalculator에 있는 필드들   -->
+		<property name="calculator">
+			<ref bean="calculator"/> <!-- 어떤 객체를 참조하고 있는지...타입이 Calculator인 객체를 참조함 -->
+									 <!-- Calculator이 아닌 calculator(소문자)를 써준 이유는  참조타입을 calculator로 정의 해놨기 때문-->	 
+		</property>
+		<property name="firstNum" value="10" />
+		<property name="secondNum" value="2"></property>
+	</bean>
+
+</beans>

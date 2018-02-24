@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- 공통기능인 proxy에 관련된 객체 bean  -->
+	<bean id="logAop" class="com.javalec.ex.LogAop" />
+	
+	<!-- aop를 설정해주는 단계  -->
+	<aop:config>
+		<!-- 공통기능의 아이디는 logger이며 참조는 logAop(위에서 객체(bean)를 logAop로 이미 선언)이다  -->
+		<aop:aspect id="logger" ref="logAop">
+			<!-- 실제 핵심코드를 "publicM" 이며 핵심코드는 com.javalec.ex 안에 있는 모든것을 핵심코드로 적용하겟다  -->
+			<aop:pointcut id="publicM" expression="within(com.javalec.ex.*)"  />
+			
+			<!-- aspect에 어떤 기능을 줄꺼냐... loggerAOP라는 기능을 주겟다-->
+			<!-- 공통 기능(메소드)는 언제 실행 될꺼냐 등을 설정 -->
+			<!-- loggerAop()메소드 안에 핵심코드를 실행시켜주는 코드가 있음 -->
+			<!-- <aop:after> : 메소드 실행중 exception 이 발생하여도 advice실행 -->
+			<aop:around pointcut-ref="publicM" method="loggerAop" />
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- 위와같이 설정해주면.... 핵심코드이며 aop대상안에 자동으로 들어온다 -->
+	<bean id="student" class="com.javalec.ex.Student" >
+		<property name="name" value="홍길동" />
+		<property name="age" value="10" />
+		<property name="gradeNum" value="3" />
+		<property name="classNum" value="5" />
+	</bean>
+	
+	<bean id="worker" class="com.javalec.ex.Worker" >
+		<property name="name" value="홍길순" />
+		<property name="age" value="35" />
+		<property name="job" value="개발자" />
+	</bean>
+	
+</beans>
