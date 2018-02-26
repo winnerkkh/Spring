@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.javalec.spring_pjt_board" />
+
+	<!-- JDBC 빈 설정 -->
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+
+		<beans:property name="username" value="kh" />
+		<beans:property name="password" value="kh" />
+	</beans:bean>
+
+	<!-- 스프링이 제공하는 JDBC를 이용하여 위에 정보를 아래에 사용 -->
+	<!-- JDBC템플릿 bean을 아래와같이 만들어서 그 템플릿 필드에 dataSource가 있으며 -->
+	<!-- 그 dataSource는 위에 설정된 dataSource를 참조하고 있다 -->
+	<!-- 결국 위에 설정한 부분을 아래에 빈 하나로 다 활용할수가 있다 -->
+	<!-- 하지만 아래와같이 설정만 했다고해서 컨트롤러 클래스에서 사용할수 없다 -->
+	<!-- 그래서 컨트롤러 클래스에 어노테이션인 @Autowired 를 명시해줘야함 -->
+	<!-- BController 참조 -->
+	<beans:bean name="template" class="org.springframework.jdbc.core.JdbcTemplate">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+
+</beans:beans>

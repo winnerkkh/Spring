@@ -161,7 +161,7 @@
       <!-- <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" factory="oracle.jdbc.pool.OracleDataSourceFactory" loginTimeOut="10" maxWait="5000" name="jdbc/pool" password="kh" type="oracle.jdbc.pool.OracleDataSource" url="jdbc:oracle:thin:@localhost:1521:xe" userName="kh"/>  -->
       
       
-      <Context docBase="spring_15_1_ex1_srpingex(validate)" path="/spring_15_1_ex1_srpingex(validate)" reloadable="true" source="org.eclipse.jst.jee.server:spring_15_1_ex1_srpingex(validate)"/><Context docBase="spring_project_board" path="/spring_pjt_board" reloadable="true" source="org.eclipse.jst.jee.server:spring_project_board"/><Context docBase="springMVCBoard" path="/springMVCBoard" reloadable="true" source="org.eclipse.jst.jee.server:springMVCBoard"/></Host>     
+      <Context docBase="spring_project_board2" path="/spring_pjt_board" reloadable="true" source="org.eclipse.jst.jee.server:spring_project_board2"/><Context docBase="spring_21_1_ex1_srpingex(JdbcTemplate)" path="/springMVCBoard" reloadable="true" source="org.eclipse.jst.jee.server:spring_21_1_ex1_srpingex(JdbcTemplate)"/></Host>     
     </Engine>
   </Service>
 </Server>
